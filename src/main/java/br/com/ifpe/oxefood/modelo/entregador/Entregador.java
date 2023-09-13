@@ -70,7 +70,7 @@ public class Entregador extends EntidadeAuditavel {
         @Column
         private String enderecoComplemento;
 
-        @Column
-        private Boolean ativo;
+       // @Column
+        //private Boolean ativo;
     
 }

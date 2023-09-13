@@ -2,7 +2,6 @@ package br.com.ifpe.oxefood.api.entregador;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -68,7 +67,7 @@ public class EntregadorRequest {
                .enderecoCidade(enderecoCidade)
                .enderecoUf(enderecoUf)
                .enderecoComplemento(enderecoComplemento)  
-               .ativo(ativo)            
+               //.ativo(ativo)            
                .build();
    }
         }
