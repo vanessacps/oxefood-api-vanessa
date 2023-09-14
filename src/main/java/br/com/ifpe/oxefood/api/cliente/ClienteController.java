@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,7 @@ import java.util.List;
 @CrossOrigin
 public class ClienteController {
     
-     @Autowired
+    @Autowired
    private ClienteService clienteService;
 
    @PostMapping
@@ -42,6 +43,14 @@ public class ClienteController {
 
         return clienteService.findById(id);
     }
+
+    @PutMapping("/{id}")
+   public ResponseEntity<Cliente> update(@PathVariable("id") Long id, @RequestBody ClienteRequest request) {
+
+       clienteService.update(id, request.build());
+       return ResponseEntity.ok().build();
+   }
+
 
 }
 
