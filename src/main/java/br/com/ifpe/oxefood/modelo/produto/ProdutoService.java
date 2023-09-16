@@ -3,6 +3,7 @@ package br.com.ifpe.oxefood.modelo.produto;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.lang.Long;
 
 import javax.transaction.Transactional;
 
@@ -54,6 +55,20 @@ public class ProdutoService {
 	    
       produto.setVersao(produto.getVersao() + 1);
       repository.save(produto);
+  }
+
+
+  @Transactional
+  public void delete (Long id ){
+
+      Produto produto = repository.findById(id).get();
+      produto.setHabilitado(Boolean.FALSE);
+      produto.setVersao(produto.getVersao() + 1);
+
+      repository.save(produto);
+
+
+
   }
 
 

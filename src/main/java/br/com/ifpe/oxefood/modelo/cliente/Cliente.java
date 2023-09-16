@@ -18,7 +18,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name="Cliente")
-@Where(clause ="habilitado = true")
+@Where(clause ="habilitado = true") // so aparede os clientes habilitados para aparecer os excluidos é so coloca false
 @Builder
 @Getter
 @Setter

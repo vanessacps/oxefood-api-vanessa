@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.lang.Long;
 
 @Service
 public class ClienteService {
@@ -48,6 +49,17 @@ public void update(Long id, Cliente clienteAlterado) {
    repository.save(cliente);
 }
 
+@Transactional
+public void delete (Long id){
+
+    Cliente cliente = repository.findById(id).get();
+    cliente.setHabilitado(Boolean.FALSE);
+    cliente.setVersao(cliente.getVersao() + 1);
+
+    repository.save(cliente); // so altera o habilitado para false ( exclusão logica , continua no BD )
+    //repository.delete(cliente); - se quiser deletar realmente
+
+}
 
 
 
