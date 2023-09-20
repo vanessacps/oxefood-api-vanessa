@@ -1,5 +1,7 @@
 package br.com.ifpe.oxefood.api.produto;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +14,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.lang.Long;
-
 
 import br.com.ifpe.oxefood.modelo.produto.Produto;
 import br.com.ifpe.oxefood.modelo.produto.ProdutoService;
-
-import java.util.List;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 
 @RestController
@@ -29,18 +30,30 @@ public class ProdutoController {
     @Autowired
    private ProdutoService produtoService;
 
+   @ApiOperation(value = "Serviço responsável por salvar um produto no sistema.")
    @PostMapping
    public ResponseEntity<Produto> save(@RequestBody ProdutoRequest request) {
 
        Produto produto = produtoService.save(request.build());
        return new ResponseEntity<Produto>(produto, HttpStatus.CREATED);
    }
-  
+
+
+   @ApiOperation(value = "Serviço responsável por listar todos os produtos do sistema.")
     @GetMapping
     public List<Produto> findAll() {
   
         return produtoService.findAll();
     }
+
+    @ApiOperation(value = "Serviço responsável por obter um produto referente ao Id passado na URL.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Retorna  o produto."),
+        @ApiResponse(code = 401, message = "Acesso não autorizado."),
+        @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso."),
+        @ApiResponse(code = 404, message = "Não foi encontrado um registro para o Id informado."),
+        @ApiResponse(code = 500, message = "Foi gerado um erro no servidor."),
+    })
 
     @GetMapping("/{id}")
     public Produto findById(@PathVariable Long id) {
@@ -49,6 +62,7 @@ public class ProdutoController {
     }
 
 
+    @ApiOperation(value = "Serviço responsável por alterar um produto referente ao id passado na URL no sistema.")
     @PutMapping ("/{id}")
     public ResponseEntity<Produto> update (@PathVariable ("id") Long id, @RequestBody ProdutoRequest request){
 
@@ -57,6 +71,7 @@ public class ProdutoController {
     }
 
 
+    @ApiOperation(value = "Serviço responsável por deletar um produto referente ao id passado na URL no sistema.")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete (@PathVariable Long id){
 
