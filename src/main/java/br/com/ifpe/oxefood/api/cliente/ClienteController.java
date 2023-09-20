@@ -20,6 +20,11 @@ import java.lang.Long;
 
 import java.util.List;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
+
 @RestController
 @RequestMapping("/api/cliente")
 @CrossOrigin
@@ -28,24 +33,30 @@ public class ClienteController {
     @Autowired
    private ClienteService clienteService;
 
+   
+   @ApiOperation(value = "Serviço responsável por listar todos os clientes do sistema.")
    @PostMapping
    public ResponseEntity<Cliente> save(@RequestBody ClienteRequest request) {
 
        Cliente cliente = clienteService.save(request.build());
        return new ResponseEntity<Cliente>(cliente, HttpStatus.CREATED);
    }
+
+   @ApiOperation(value = "Serviço responsável por listar todos os clientes do sistema.")
     @GetMapping
     public List<Cliente> findAll() {
   
         return clienteService.findAll();
     }
 
+    @ApiOperation(value = "Serviço responsável por listar todos os clientes do sistema.")
     @GetMapping("/{id}")
     public Cliente findById(@PathVariable Long id) {
 
         return clienteService.findById(id);
     }
 
+    @ApiOperation(value = "Serviço responsável por listar todos os clientes do sistema.")
     @PutMapping("/{id}")
    public ResponseEntity<Cliente> update(@PathVariable("id") Long id, @RequestBody ClienteRequest request) {
 
@@ -54,6 +65,7 @@ public class ClienteController {
    }
 
 
+   @ApiOperation(value = "Serviço responsável por listar todos os clientes do sistema.")
    @DeleteMapping ("/{id}")
    public ResponseEntity<Void> delete (@PathVariable Long id){
 
