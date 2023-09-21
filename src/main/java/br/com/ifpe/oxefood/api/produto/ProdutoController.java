@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ifpe.oxefood.modelo.CategoriaProduto.CategoriaProdutoService;
 import br.com.ifpe.oxefood.modelo.produto.Produto;
 import br.com.ifpe.oxefood.modelo.produto.ProdutoService;
 import io.swagger.annotations.ApiOperation;
@@ -30,12 +31,19 @@ public class ProdutoController {
     @Autowired
    private ProdutoService produtoService;
 
+    @Autowired
+   private CategoriaProdutoService categoriaProdutoService;
+
+
    @ApiOperation(value = "Serviço responsável por salvar um produto no sistema.")
    @PostMapping
    public ResponseEntity<Produto> save(@RequestBody ProdutoRequest request) {
 
-       Produto produto = produtoService.save(request.build());
-       return new ResponseEntity<Produto>(produto, HttpStatus.CREATED);
+    Produto produtoNovo = request.build();
+    produtoNovo.setCategoria(categoriaProdutoService.findById(request.getIdCategoria()));
+    Produto produto = produtoService.save(produtoNovo);
+    return new ResponseEntity<Produto>(produto, HttpStatus.CREATED);
+
    }
 
 
@@ -66,7 +74,11 @@ public class ProdutoController {
     @PutMapping ("/{id}")
     public ResponseEntity<Produto> update (@PathVariable ("id") Long id, @RequestBody ProdutoRequest request){
 
-        produtoService.update(id , request.build());
+        Produto produto = request.build();
+       produto.setCategoria(categoriaProdutoService.findById(request.getIdCategoria()));
+       produtoService.update(id, produto);
+
+
         return ResponseEntity.ok().build();
     }
 
