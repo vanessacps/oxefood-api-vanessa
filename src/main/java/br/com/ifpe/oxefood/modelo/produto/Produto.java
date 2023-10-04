@@ -32,13 +32,13 @@ public class Produto extends EntidadeAuditavel {
 
 
    
-    @Column
+    @Column(nullable = false, length = 100)
     private String titulo;
 
-    @Column
+    @Column(unique = true)
     private String codigo;
 
-    @Column
+    @Column(nullable = false, length = 100)
     private String descricao;
 
     @Column

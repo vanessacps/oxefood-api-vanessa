@@ -72,7 +72,7 @@ public class CategoriaProdutoController {
 
    @ApiOperation(value = "Serviço responsável por alterar uma categoria de produto referente ao id passado na URL no sistema.")
     @PutMapping("/{id}")
-   public ResponseEntity<CategoriaProduto> update(@PathVariable("id") Long id, @RequestBody CategoriaProdutoRequest request) {
+   public ResponseEntity<CategoriaProduto> update(@PathVariable("id") Long id, @RequestBody  @Valid CategoriaProdutoRequest request) {
 
       categoriaProdutoService.update(id, request.build());
        return ResponseEntity.ok().build();
