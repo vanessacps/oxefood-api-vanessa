@@ -1,14 +1,19 @@
 package br.com.ifpe.oxefood.modelo.cliente;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Where;
 
+import br.com.ifpe.oxefood.modelo.Acesso.Usuario;
 import br.com.ifpe.oxefood.util.entity.EntidadeAuditavel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +31,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cliente extends EntidadeAuditavel {
+
+     @ManyToOne
+   @JoinColumn(nullable = false)
+   private Usuario usuario;
+
+    @Fetch(FetchMode.SUBSELECT)
 
   
 
